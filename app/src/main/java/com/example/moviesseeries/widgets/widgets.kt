@@ -24,6 +24,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -51,10 +52,11 @@ import kotlin.coroutines.coroutineContext
 
 @Composable
 fun MoviewList(movie: Movie = getMovies()[0],
+               expanded: MutableState<Boolean>,
                onItemClink: (String) -> Unit = {}){
-    var expanded by remember {
-        mutableStateOf(false)
-    }
+   //var expanded by remember {
+        //mutableStateOf(false)
+   // }
 
 
     ElevatedCard(modifier = Modifier
@@ -86,7 +88,7 @@ fun MoviewList(movie: Movie = getMovies()[0],
                     style = MaterialTheme.typography.titleSmall)
 
 
-                AnimatedVisibility(visible = expanded) {
+                AnimatedVisibility(visible = expanded.value) {
                     Column {
                         Text( buildAnnotatedString {
                             withStyle(style = SpanStyle(color = Color.DarkGray,
@@ -115,15 +117,13 @@ fun MoviewList(movie: Movie = getMovies()[0],
 
 
 
-
-
-                Icon(imageVector = if (!expanded) Icons.Filled.KeyboardArrowDown
+                Icon(imageVector = if (!expanded.value) Icons.Filled.KeyboardArrowDown
                     else Icons.Filled.KeyboardArrowUp,
                     contentDescription = "Dow Arrow",
                     modifier = Modifier
                         .size(25.dp)
                         .clickable {
-                            expanded = !expanded
+                            expanded.value = !expanded.value
 
                         },
                     tint = Color.DarkGray)

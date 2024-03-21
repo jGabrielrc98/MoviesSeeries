@@ -1,5 +1,6 @@
 package com.example.moviesseeries.screens.home
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
@@ -37,13 +39,14 @@ fun HomeScreen(navController: NavController){
     }
 }
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
 fun MainContent(
     navController: NavController,
     movieList: List<Movie> = getMovies()){
     LazyColumn{
     items(items = movieList){
-        MoviewList(movie = it){ movie ->
+        MoviewList(movie = it, expanded = mutableStateOf(value = false)){ movie ->
             navController.navigate(route = MovieScreens.DetailsScreen.name+"/$movie")
         }
 

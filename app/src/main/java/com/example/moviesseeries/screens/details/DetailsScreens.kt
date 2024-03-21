@@ -1,5 +1,6 @@
 package com.example.moviesseeries.screens.details
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +28,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,6 +42,7 @@ import com.example.moviesseeries.model.Movie
 import com.example.moviesseeries.model.getMovies
 import com.example.moviesseeries.widgets.MoviewList
 
+@SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailsScreens(navController: NavController,
@@ -70,7 +74,7 @@ fun DetailsScreens(navController: NavController,
                 .fillMaxHeight()) {
                 Column(verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally) {
-                    MoviewList(movie = movie.first())
+                    MoviewList(movie = movie.first(), expanded = mutableStateOf(value = true))
                     Spacer(modifier = Modifier.height(8.dp))
                     Divider()
                     Spacer(modifier = Modifier.height(8.dp))
